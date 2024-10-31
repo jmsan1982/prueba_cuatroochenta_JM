@@ -15,7 +15,13 @@ doctrine:
                         type: annotation
                         dir: '%kernel.project_dir%/src/Auth/Register/Domain'
                         prefix: 'App\Auth\Register\Domain'
-                        alias: App
+                        alias: Register
+                    AuthLoginDomain:
+                        is_bundle: false
+                        type: annotation
+                        dir: '%kernel.project_dir%/src/Auth/Login/Domain'
+                        prefix: 'App\Auth\Login\Domain'
+                        alias: login
                     App:
                         is_bundle: false
                         type: annotation

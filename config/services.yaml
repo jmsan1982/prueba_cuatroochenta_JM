@@ -17,9 +17,17 @@ services:
         alias: App\Auth\Register\Infrastructure\Repository\DoctrineUserRepository
         public: false
 
+    App\Auth\Login\Domain\UserRepositoryInterface:
+        alias: App\Auth\Login\Infrastructure\Repository\DoctrineUserRepository
+        public: false
+
     # Explicitly make the default directory public (so it's usable as a controller)
     App\Auth\Register\Infrastructure\Controller\:
         resource: '../src/Auth/Register/Infrastructure/Controller'
+        tags: [ 'controller.service_arguments' ]
+
+    App\Auth\Login\Infrastructure\Controller\:
+        resource: '../src/Auth/Login/Infrastructure/Controller'
         tags: [ 'controller.service_arguments' ]
 
 
@@ -34,3 +42,7 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    App\Services\JwtAuth:
+        arguments:
+            $manager: '@doctrine.orm.entity_manager'

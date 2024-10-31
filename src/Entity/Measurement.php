@@ -30,8 +30,8 @@ class Measurement
     private $id_wine;
 
     /**
-     * Relation entity Sensor
-     * @ORM\ManyToOne(targetEntity="App\Entity\Sensor")
+     * Relation entity Sensors
+     * @ORM\ManyToOne(targetEntity="App\Entity\Sensors")
      * @ORM\JoinColumn(name="id_sensor", referencedColumnName="id", nullable=false)
      */
     private $id_sensor;

@@ -1,4 +1,10 @@
+#Auth
 api_user_register:
   path: /api/register
   controller: App\Auth\Register\Infrastructure\Controller\UserController::register
+  methods: [POST]
+
+api_user_login:
+  path: /api/login
+  controller: App\Auth\Login\Infrastructure\Controller\LoginController::login
   methods: [POST]

@@ -6,6 +6,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Validation;
 
 class UserController extends AbstractController
 {
@@ -56,7 +58,7 @@ class UserController extends AbstractController
             'message' => "Failed to register the user",
         ];
 
-        if (!isset($json)) {
+        if (empty($json) || is_null($json)) {
             return new JsonResponse($data);
         }
 
@@ -65,18 +67,25 @@ class UserController extends AbstractController
         $email = (!empty($params->email)) ? $params->email : null;
         $password = (!empty($params->password)) ? $params->password : null;
 
-        try {
+        $validator = Validation::createValidator();
+        $validate_email = $validator->validate($email, [
+            new Email()
+        ]);
 
-            $this->userRegistrationService->registerUser($name, $surname, $email, $password);
+        if (!empty($email) && count($validate_email) == 0 && !empty($password) && !empty($name) && !empty($surname)){
+            try {
 
-            $data = [
-                'status' => 'success',
-                'code' => Response::HTTP_CREATED,
-                'message' => "User created successfully",
-            ];
+                $this->userRegistrationService->registerUser($name, $surname, $email, $password);
 
-        }catch (\InvalidArgumentException $e){
-            return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
+                $data = [
+                    'status' => 'success',
+                    'code' => Response::HTTP_CREATED,
+                    'message' => "User created successfully",
+                ];
+
+            }catch (\InvalidArgumentException $e){
+                return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
+            }
         }
 
         return new JsonResponse($data);
