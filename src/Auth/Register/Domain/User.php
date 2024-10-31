@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Entity;
+namespace App\Auth\Register\Domain;
 
-use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\Entity
+ * * @ORM\Table(name="users")
  */
 class User
 {
@@ -36,6 +36,15 @@ class User
      * @ORM\Column(type="string", length=255)
      */
     private $password;
+
+    public function __construct(string $name, string $surname, string $email, string $password)
+    {
+        $this->name = $name;
+        $this->surname = $surname;
+        $this->email = $email;
+        $this->password = $password;
+    }
+
 
     public function getId(): ?int
     {
