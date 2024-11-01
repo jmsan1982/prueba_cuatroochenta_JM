@@ -4,11 +4,12 @@ namespace App\Sensors\Create\Infrastructure\Controller;
 
 use App\Sensors\Create\Aplication\CreateSensorService;
 use App\Services\JwtAuth;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CreateSensorController
+class CreateSensorController extends AbstractController
 {
     private CreateSensorService $createSensorService;
 
@@ -18,7 +19,7 @@ class CreateSensorController
     }
 
     /**
-     * @Route("/api/sensor", name="api_user_login", methods={"POST"})
+     * @Route("/api/sensor/create", name="api_sensor_create", methods={"POST"})
      */
     public function create(Request $request, JwtAuth $jwt_auth): JsonResponse
     {
@@ -52,7 +53,6 @@ class CreateSensorController
                         'status' => 'success',
                         'code' => Response::HTTP_CREATED,
                         'message' => "Sensor created successfully",
-                        'sensor' => $sensor
                     ];
                 } catch (\InvalidArgumentException $e) {
                     return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_BAD_REQUEST);

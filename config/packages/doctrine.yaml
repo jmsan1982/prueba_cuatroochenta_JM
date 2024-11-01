@@ -22,6 +22,12 @@ doctrine:
                         dir: '%kernel.project_dir%/src/Auth/Login/Domain'
                         prefix: 'App\Auth\Login\Domain'
                         alias: login
+                    SensorCreateDomain:
+                        is_bundle: false
+                        type: annotation
+                        dir: '%kernel.project_dir%/src/Sensors/Create/Domain/Entity'
+                        prefix: 'App\Sensors\Create\Domain\Entity'
+                        alias: login
                     App:
                         is_bundle: false
                         type: annotation

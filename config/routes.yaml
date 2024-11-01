@@ -8,3 +8,9 @@ api_user_login:
   path: /api/login
   controller: App\Auth\Login\Infrastructure\Controller\LoginController::login
   methods: [POST]
+
+#Sensors
+api_sensor_create:
+  path: /api/sensor/create
+  controller: App\Sensors\Create\Infrastructure\Controller\CreateSensorController::create
+  methods: [POST]
