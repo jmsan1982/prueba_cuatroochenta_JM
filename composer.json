@@ -67,7 +67,7 @@
         ],
         "lint": [
             "phpstan analyse src/ --level max"
-        ],
+        ]
     },
     "conflict": {
         "symfony/symfony": "*"

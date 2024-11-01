@@ -14,3 +14,8 @@ api_sensor_create:
   path: /api/sensor/create
   controller: App\Sensors\Create\Infrastructure\Controller\CreateSensorController::create
   methods: [POST]
+
+api_sensor_getAll:
+  path: /api/sensor/getAll
+  controller: App\Sensors\GetAll\Infrastructure\Controller\GetAllSensorController::getAll
+  methods: [GET]
