@@ -2,7 +2,6 @@
 namespace App\Auth\Login\Infrastructure\Controller;
 
 use App\Auth\Login\Aplication\UserLoginService;
-use App\Services\JwtAuth;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,7 +11,7 @@ use Symfony\Component\Validator\Validation;
 
 class LoginController extends AbstractController
 {
-    private $userLoginService;
+    private UserLoginService $userLoginService;
 
     public function __construct(UserLoginService $userLoginService)
     {

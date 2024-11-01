@@ -9,7 +9,7 @@ use Firebase\JWT\Key;
 class JwtAuth
 {
     public $manager;
-    public $key;
+    public string $key;
 
     public function __construct($manager)
     {
@@ -17,7 +17,8 @@ class JwtAuth
         $this->key = "prueba_cuatroochenta_api_987788454654";
     }
 
-    public function signup($email, $password, $getToken = null)
+
+    public function signup(string $email,string $password, $getToken = null)
     {
         $signup = false;
 
@@ -57,5 +58,28 @@ class JwtAuth
         }
 
         return $data;
+    }
+
+    public function checkToken($jwt, bool $identity = false)
+    {
+        $auth = false;
+
+        try {
+            $decode = JWT::decode($jwt, new Key($this->key, 'HS256'));
+        }catch (\UnexpectedValueException $e){
+            $auth = false;
+        }catch (\DomainException $e){
+             $auth = false;
+        }
+
+        if (!empty($decode) && isset($decode) && is_object($decode) && isset($decode->sub)) {
+            $auth = true;
+        }
+
+        if (!$identity != false){
+            return $decode;
+        }else{
+            return $auth;
+        }
     }
 }

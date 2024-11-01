@@ -10,8 +10,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserLoginService
 {
-    private $userLoginRepository;
-    private $jwtAuth;
+    private UserRepositoryInterface $userLoginRepository;
+    private JwtAuth $jwtAuth;
 
     public function __construct(UserRepositoryInterface $userLoginRepository, JwtAuth $jwtAuth)
     {
@@ -35,8 +35,7 @@ class UserLoginService
 
         $jwtAuth = $this->jwtAuth;
 
-        if ($jwtAuth){
-
+        if ($jwtAuth !== null){
             $signup = $jwtAuth->signup($email, $pwd, $jwtAuth);
         }else{
             $signup = $jwtAuth->signup($email, $pwd);

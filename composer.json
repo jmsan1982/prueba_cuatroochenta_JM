@@ -64,7 +64,10 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
-        ]
+        ],
+        "lint": [
+            "phpstan analyse src/ --level max"
+        ],
     },
     "conflict": {
         "symfony/symfony": "*"
@@ -76,6 +79,7 @@
         }
     },
     "require-dev": {
+        "phpstan/phpstan": "^1.12",
         "symfony/debug-bundle": "5.4.*",
         "symfony/maker-bundle": "^1.43"
     }

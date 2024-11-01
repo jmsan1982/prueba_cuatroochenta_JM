@@ -15,27 +15,27 @@ class User
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=150)
      */
-    private $name;
+    private string $name;
 
     /**
      * @ORM\Column(type="string", length=200)
      */
-    private $surname;
+    private string $surname;
 
     /**
      * @ORM\Column(type="string", length=150, unique=true)
      */
-    private $email;
+    private string $email;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $password;
+    private string $password;
 
     public function __construct(string $name, string $surname, string $email, string $password)
     {
@@ -54,6 +54,11 @@ class User
     public function getName(): ?string
     {
         return $this->name;
+    }
+
+    public function setId(int $id): void
+    {
+        $this->id = $id;
     }
 
     public function setName(string $name): self

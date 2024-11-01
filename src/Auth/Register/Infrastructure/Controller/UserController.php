@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Validation;
 
 class UserController extends AbstractController
 {
-    private $userRegistrationService;
+    private UserRegistrationService $userRegistrationService;
 
     public function __construct(UserRegistrationService $userRegistrationService)
     {
@@ -58,7 +58,7 @@ class UserController extends AbstractController
             'message' => "Failed to register the user",
         ];
 
-        if (empty($json) || is_null($json)) {
+        if (empty($json)) {
             return new JsonResponse($data);
         }
 

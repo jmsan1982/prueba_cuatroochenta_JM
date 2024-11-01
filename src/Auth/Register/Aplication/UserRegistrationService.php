@@ -8,13 +8,13 @@ use App\Auth\Register\Domain\UserRepositoryInterface;
 
 class UserRegistrationService
 {
-    private $userRepository;
+    private UserRepositoryInterface $userRepository;
 
     public function __construct(UserRepositoryInterface $userRepository){
         $this->userRepository = $userRepository;
     }
 
-    public function registerUser(string $name, string $surname, string $email, string $password)
+    public function registerUser(string $name, string $surname, string $email, string $password):void
     {
 
         if ($this->userRepository->findbyEmail($email)){
