@@ -19,3 +19,10 @@ api_sensor_getAll:
   path: /api/sensor/getAll
   controller: App\Sensors\GetAll\Infrastructure\Controller\GetAllSensorController::getAll
   methods: [GET]
+
+#Measurements
+
+api_measurement_create:
+  path: /api/measurement/create
+  controller: App\Measurement\Create\Infrastructure\Controller\CreateMeasurementController::create
+  methods: [POST]

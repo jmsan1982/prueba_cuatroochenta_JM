@@ -34,6 +34,12 @@ doctrine:
                         dir: '%kernel.project_dir%/src/Sensors/GetAll/Domain/Entity'
                         prefix: 'App\Sensors\GetAll\Domain\Entity'
                         alias: getAll
+                    MeasurementCreateDomain:
+                        is_bundle: false
+                        type: annotation
+                        dir: '%kernel.project_dir%/src/Measurement/Create/Domain/Entity'
+                        prefix: 'App\Measurement\Create\Domain\Entity'
+                        alias: createMeasurement
                     App:
                         is_bundle: false
                         type: annotation
