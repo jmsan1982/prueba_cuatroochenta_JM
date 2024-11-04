@@ -26,3 +26,9 @@ api_measurement_create:
   path: /api/measurement/create
   controller: App\Measurement\Create\Infrastructure\Controller\CreateMeasurementController::create
   methods: [POST]
+
+#wines
+api_wines_getAll:
+  path: /api/wines/getAll
+  controller: App\Wines\GetAll\Infrastructure\Controller\WineController::getAll
+  methods: [GET]

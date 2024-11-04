@@ -2,7 +2,8 @@
 
 namespace App\Measurement\Create\Domain\Entity;
 
-use App\Repository\MeasurementRepository;
+use App\Sensors\Create\Domain\Entity\Sensor;
+use App\Wines\GetAll\Domain\Entity\Wine;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -19,18 +20,16 @@ class Measurement
     private $id;
 
     /**
-     * relation entity Wine
-     * @ORM\ManyToOne(targetEntity="App\Measurement\Create\Domain\Entity\Wine")
+     * @ORM\ManyToOne(targetEntity="App\Wines\GetAll\Domain\Entity\Wine", inversedBy="measurements")
      * @ORM\JoinColumn(name="id_wine", referencedColumnName="id", nullable=false)
      */
-    private $id_wine;
+    private $wine;
 
     /**
-     * Relation entity Sensors
-     * @ORM\ManyToOne(targetEntity="App\Sensors\Create\Domain\Entity\Sensors")
+     * @ORM\ManyToOne(targetEntity="App\Sensors\Create\Domain\Entity\Sensor")
      * @ORM\JoinColumn(name="id_sensor", referencedColumnName="id", nullable=false)
      */
-    private $id_sensor;
+    private $sensor;
 
     /**
      * @ORM\Column(type="string", length=50)
@@ -52,10 +51,10 @@ class Measurement
      */
     private $ph;
 
-    public function __construct($id_wine, $id_sensor, $color, $temperature, $alcohol_content, $ph)
+    public function __construct(Wine $wine, Sensor $sensor, $color, $temperature, $alcohol_content, $ph)
     {
-        $this->id_wine = $id_wine;
-        $this->id_sensor = $id_sensor;
+        $this->wine = $wine;
+        $this->sensor = $sensor;
         $this->color = $color;
         $this->temperature = $temperature;
         $this->alcohol_content = $alcohol_content;
@@ -67,39 +66,25 @@ class Measurement
         return $this->id;
     }
 
-    public function getYear(): ?string
+    public function getWine(): ?Wine
     {
-        return $this->year;
+        return $this->wine;
     }
 
-    public function setYear(string $year): self
+    public function setWine(Wine $wine): self
     {
-        $this->year = $year;
-
+        $this->wine = $wine;
         return $this;
     }
 
-    public function getIdSensor(): ?int
+    public function getSensor(): ?Sensor
     {
-        return $this->id_sensor;
+        return $this->sensor;
     }
 
-    public function setIdSensor(int $id_sensor): self
+    public function setSensor(Sensor $sensor): self
     {
-        $this->id_sensor = $id_sensor;
-
-        return $this;
-    }
-
-    public function getIdWine(): ?int
-    {
-        return $this->id_wine;
-    }
-
-    public function setIdWine(int $id_wine): self
-    {
-        $this->id_wine = $id_wine;
-
+        $this->sensor = $sensor;
         return $this;
     }
 

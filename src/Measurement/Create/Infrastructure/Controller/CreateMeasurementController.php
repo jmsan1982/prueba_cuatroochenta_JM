@@ -4,6 +4,7 @@ namespace App\Measurement\Create\Infrastructure\Controller;
 
 use App\Measurement\Create\Aplication\CreateMeasurementService;
 use App\Services\JwtAuth;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,10 +13,12 @@ use Symfony\Component\HttpFoundation\Response;
 class CreateMeasurementController extends AbstractController
 {
     private CreateMeasurementService $createMeasurementService;
+    private EntityManagerInterface $entityManager;
 
-    public function __construct(CreateMeasurementService $createMeasurementService)
+    public function __construct(CreateMeasurementService $createMeasurementService, EntityManagerInterface $entityManager)
     {
         $this->createMeasurementService = $createMeasurementService;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -53,6 +56,7 @@ class CreateMeasurementController extends AbstractController
             if (!empty($id_wine) && !empty($id_sensor) && !empty($color) && !empty($temperature) && !empty($alcohol_content) && !empty($ph)){
 
                 try {
+
                     $this->createMeasurementService->execute($id_wine, $id_sensor, $color, $temperature, $alcohol_content, $ph);
 
                     $data = [
