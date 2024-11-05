@@ -2,6 +2,7 @@
 
 namespace App\Sensors\GetAll\Aplication;
 
+use App\Sensors\Create\Domain\Entity\Sensor;
 use App\Sensors\GetAll\Domain\Interfaces\GetAllSensorRepositoryInterface;
 
 class GetAllSensorService
@@ -13,7 +14,11 @@ class GetAllSensorService
         $this->getAllSensorRepository = $getAllSensorRepository;
     }
 
-    public function getAll(){
+    /**
+     * @return Sensor[]
+     */
+    public function getAll():array
+    {
         return $this->getAllSensorRepository->getAllOrderByName();
     }
 }

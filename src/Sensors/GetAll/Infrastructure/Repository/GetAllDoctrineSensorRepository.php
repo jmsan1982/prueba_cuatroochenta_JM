@@ -4,6 +4,7 @@ namespace App\Sensors\GetAll\Infrastructure\Repository;
 
 
 
+use App\Sensors\Create\Domain\Entity\Sensor;
 use App\Sensors\GetAll\Domain\Entity\SensorGetAll;
 use App\Sensors\GetAll\Domain\Interfaces\GetAllSensorRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -16,7 +17,10 @@ class GetAllDoctrineSensorRepository extends ServiceEntityRepository implements 
         parent::__construct($registry, SensorGetAll::class);
     }
 
-    public function getAllOrderByName()
+    /**
+     * @return Sensor[]
+     */
+    public function getAllOrderByName():array
     {
         $query = $this->getEntityManager()->createQueryBuilder();
 

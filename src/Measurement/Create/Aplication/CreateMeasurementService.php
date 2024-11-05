@@ -19,7 +19,11 @@ class CreateMeasurementService
         $this->entityManager = $entityManager;
     }
 
-    public function execute(int $id_wine, int $id_sensor, string $color, string $temperature, string $alcohol_content, string $ph)
+
+    /**
+     * @return Measurement
+     */
+    public function execute(int $id_wine, int $id_sensor, string $color, string $temperature, string $alcohol_content, string $ph):Measurement
     {
         $wine = $this->entityManager->getRepository(Wine::class)->find($id_wine);
         $sensor = $this->entityManager->getRepository(Sensor::class)->find($id_sensor);

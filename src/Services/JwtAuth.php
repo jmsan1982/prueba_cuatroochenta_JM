@@ -3,21 +3,28 @@
 namespace App\Services;
 
 use App\Auth\Login\Domain\User;
+use Doctrine\ORM\EntityManagerInterface;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
 class JwtAuth
 {
-    public $manager;
+    public EntityManagerInterface  $manager;
     public string $key;
 
-    public function __construct($manager)
+    public function __construct(EntityManagerInterface  $manager)
     {
         $this->manager = $manager;
         $this->key = "prueba_cuatroochenta_api_987788454654";
     }
 
 
+    /**
+     * @param string $email
+     * @param string $password
+     * @param bool|null $getToken
+     * @return array|string|object
+     */
     public function signup(string $email,string $password, $getToken = null)
     {
         $signup = false;
@@ -60,9 +67,15 @@ class JwtAuth
         return $data;
     }
 
-    public function checkToken($jwt, bool $identity = false)
+    /**
+     * @param string $jwt
+     * @param bool $identity
+     * @return bool|object|null
+     */
+    public function checkToken(string $jwt, bool $identity = false)
     {
         $auth = false;
+        $decode = null;
 
         try {
             $decode = JWT::decode($jwt, new Key($this->key, 'HS256'));
@@ -72,7 +85,7 @@ class JwtAuth
              $auth = false;
         }
 
-        if (!empty($decode) && isset($decode) && is_object($decode) && isset($decode->sub)) {
+        if (!empty($decode) && is_object($decode) && isset($decode->sub)) {
             $auth = true;
         }
 

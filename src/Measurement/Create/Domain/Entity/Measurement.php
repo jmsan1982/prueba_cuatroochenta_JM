@@ -17,7 +17,7 @@ class Measurement
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Wines\GetAll\Domain\Entity\Wine", inversedBy="measurements")
@@ -34,24 +34,24 @@ class Measurement
     /**
      * @ORM\Column(type="string", length=50)
      */
-    private $color;
+    private string $color;
 
     /**
      * @ORM\Column(type="string", length=10)
      */
-    private $temperature;
+    private string $temperature;
 
     /**
      * @ORM\Column(type="string", length=10)
      */
-    private $alcohol_content;
+    private string $alcohol_content;
 
     /**
      * @ORM\Column(type="string", length=10)
      */
-    private $ph;
+    private string $ph;
 
-    public function __construct(Wine $wine, Sensor $sensor, $color, $temperature, $alcohol_content, $ph)
+    public function __construct(Wine $wine, Sensor $sensor, string $color, string $temperature, string $alcohol_content, string $ph)
     {
         $this->wine = $wine;
         $this->sensor = $sensor;
@@ -64,6 +64,11 @@ class Measurement
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId(int $id): void
+    {
+        $this->id = $id;
     }
 
     public function getWine(): ?Wine

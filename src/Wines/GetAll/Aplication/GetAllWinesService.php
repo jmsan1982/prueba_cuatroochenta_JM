@@ -2,6 +2,7 @@
 
 namespace App\Wines\GetAll\Aplication;
 
+use App\Wines\GetAll\Domain\Entity\Wine;
 use App\Wines\GetAll\Domain\Interfaces\GetAllWineRepositoryInterface;
 
 class GetAllWinesService
@@ -12,7 +13,10 @@ class GetAllWinesService
         $this->getAllWinesRepository = $getAllSensorService;
     }
 
-    function getAllWines()
+    /**
+     * @return Wine[] Returns an array of Wine objects
+     */
+    function getAllWines():array
     {
         return $this->getAllWinesRepository->getAllWines();
     }

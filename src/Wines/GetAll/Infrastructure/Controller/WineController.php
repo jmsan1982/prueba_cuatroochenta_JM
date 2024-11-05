@@ -9,17 +9,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Serializer\SerializerInterface;
 
 class WineController extends AbstractController
 {
-    private $getAllWinesService;
-    private $serializer;
+    private GetAllWinesService $getAllWinesService;
 
-    public function __construct(GetAllWinesService $getAllWinesService, SerializerInterface $serializer)
+    public function __construct(GetAllWinesService $getAllWinesService)
     {
         $this->getAllWinesService = $getAllWinesService;
-        $this->serializer = $serializer;
     }
 
     /**
@@ -37,21 +34,41 @@ class WineController extends AbstractController
 
         $authChecker = $jwt_auth->checkToken($token);
 
+        $wines = [];
+
         if ($authChecker){
             $identity = $jwt_auth->checkToken($token, true);
             $wineObject = $this->getAllWinesService->getAllWines();
-            $measurements = [];
+
             foreach ($wineObject as $wine) {
-                $measurements[] = $wine->getMeasurements()->toArray();
+                $measurementsArray = [];
+                foreach ($wine->getMeasurements() as $measurement) {
+
+                    if ($measurement->getWine()->getId() === $wine->getId()){
+                        $measurementsArray[] = [
+                            'id' => $measurement->getId(),
+                            'id_wine' => $measurement->getWine()->getId(),
+                            'id_sensor' => $measurement->getSensor()->getId(),
+                            'color' => $measurement->getColor(),
+                            'temperature' => $measurement->getTemperature(),
+                            'alcohol_content' => $measurement->getAlcoholContent(),
+                            'ph' => $measurement->getPh(),
+                        ];
+                    }
+                }
+                $wines[] = [
+                    'id' => $wine->getId(),
+                    'name' => $wine->getName(),
+                    'year' => $wine->getYear(),
+                    'measurements' => $measurementsArray,
+                ];
             }
-            $wineObject['measurements'] = $measurements;
-            $wines = $this->serializer->serialize($wineObject, 'json');
 
             $data = [
                 'status' => 'success',
                 'code' => Response::HTTP_OK,
                 'message' => 'Correct wine list',
-                'wines' => json_decode($wines),
+                'wines' => $wines,
             ];
         }
         return new JsonResponse($data);

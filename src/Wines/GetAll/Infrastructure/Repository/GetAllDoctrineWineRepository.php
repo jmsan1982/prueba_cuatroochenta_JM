@@ -5,8 +5,6 @@ namespace App\Wines\GetAll\Infrastructure\Repository;
 use App\Wines\GetAll\Domain\Entity\Wine;
 use App\Wines\GetAll\Domain\Interfaces\GetAllWineRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 class GetAllDoctrineWineRepository extends ServiceEntityRepository implements GetAllWineRepositoryInterface
@@ -16,7 +14,10 @@ class GetAllDoctrineWineRepository extends ServiceEntityRepository implements Ge
         parent::__construct($registry, Wine::class);
     }
 
-    public function getAllWines()
+    /**
+     * @return Wine[]
+     */
+    public function getAllWines():array
     {
 
         return $this->findAll();

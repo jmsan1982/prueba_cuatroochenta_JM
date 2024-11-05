@@ -17,26 +17,31 @@ class Wine
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private string $name;
 
     /**
      * @ORM\Column(type="string", length=10)
      */
-    private $year;
+    private string $year;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Measurement\Create\Domain\Entity\Measurement", mappedBy="id_wine")
+     * @ORM\OneToMany(targetEntity="App\Measurement\Create\Domain\Entity\Measurement", mappedBy="wine")
      */
     private $measurements;
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId(int $id): void
+    {
+        $this->id = $id;
     }
 
     public function getName(): ?string

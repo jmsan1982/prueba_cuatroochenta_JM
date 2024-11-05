@@ -36,7 +36,7 @@ class UserLoginService
         $jwtAuth = $this->jwtAuth;
 
         if ($jwtAuth !== null){
-            $signup = $jwtAuth->signup($email, $pwd, $jwtAuth);
+            $signup = $jwtAuth->signup($email, $pwd);
         }else{
             $signup = $jwtAuth->signup($email, $pwd);
         }

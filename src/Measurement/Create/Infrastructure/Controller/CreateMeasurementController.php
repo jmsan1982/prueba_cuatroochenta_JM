@@ -13,12 +13,10 @@ use Symfony\Component\HttpFoundation\Response;
 class CreateMeasurementController extends AbstractController
 {
     private CreateMeasurementService $createMeasurementService;
-    private EntityManagerInterface $entityManager;
 
-    public function __construct(CreateMeasurementService $createMeasurementService, EntityManagerInterface $entityManager)
+    public function __construct(CreateMeasurementService $createMeasurementService)
     {
         $this->createMeasurementService = $createMeasurementService;
-        $this->entityManager = $entityManager;
     }
 
     /**
