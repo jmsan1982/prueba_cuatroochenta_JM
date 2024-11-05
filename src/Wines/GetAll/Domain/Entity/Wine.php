@@ -34,6 +34,12 @@ class Wine
      */
     private $measurements;
 
+    public function __construct(string $name, string $year)
+    {
+        $this->name = $name;
+        $this->year = $year;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

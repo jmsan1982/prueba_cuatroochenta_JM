@@ -16,6 +16,10 @@ class CreateSensorService
 
     public function execute(string $name):object
     {
+        if (empty($name)) {
+            throw new \InvalidArgumentException('Sensor name cannot be empty');
+        }
+
         $sensor = new Sensor($name);
         $this->createSensorRepository->save($sensor);
 

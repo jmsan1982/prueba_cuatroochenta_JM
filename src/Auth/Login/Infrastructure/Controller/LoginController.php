@@ -88,7 +88,7 @@ class LoginController extends AbstractController
 
                 $data = [
                     'status' => 'success',
-                    'code' => Response::HTTP_CREATED,
+                    'code' => Response::HTTP_OK,
                     'message' => "Login successfully",
                     'token' => json_decode($token->getContent()),
                 ];
