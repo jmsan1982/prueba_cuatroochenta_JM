@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Validation;
+use Symfony\Component\Routing\Annotation\Route;
+use OpenApi\Annotations as OA;
 
 class UserController extends AbstractController
 {
@@ -22,29 +24,41 @@ class UserController extends AbstractController
      * @Route("/api/register", name="api_user_register", methods={"POST"})
      *
      * @OA\Post(
-     *      summary="Register a new user",
-     *      description="Registers a new user in the system",
-     *      @OA\RequestBody(
-     *          @OA\JsonContent(
-     *              type="object",
-     *              @OA\Property(property="name", type="string"),
-     *              @OA\Property(property="email", type="string"),
-     *              @OA\Property(property="password", type="string")
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=201,
-     *          description="User registered successfully",
-     *          @OA\JsonContent(
-     *              type="object",
-     *              @OA\Property(property="message", type="string")
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad request"
-     *      )
-     *  )
+     * path="/api/register",
+     * summary="Register a new user",
+     * description="Registers a new user in the system",
+     * tags={"Auth"},
+     * @OA\RequestBody(
+     * required=true,
+     * @OA\JsonContent(
+     * type="object",
+     * @OA\Property(property="name", type="string", description="User's first name"),
+     * @OA\Property(property="surname", type="string", description="User's surname"),
+     * @OA\Property(property="email", type="string", description="User's email address"),
+     * @OA\Property(property="password", type="string", description="User's password")
+     * )
+     * ),
+     * @OA\Response(
+     * response=201,
+     * description="User registered successfully",
+     * @OA\JsonContent(
+     * type="object",
+     * @OA\Property(property="status", type="string", example="success"),
+     * @OA\Property(property="code", type="integer", example=201),
+     * @OA\Property(property="message", type="string", example="User created successfully")
+     * )
+     * ),
+     * @OA\Response(
+     * response=400,
+     * description="Failed to register the user",
+     * @OA\JsonContent(
+     * type="object",
+     * @OA\Property(property="status", type="string", example="error"),
+     * @OA\Property(property="code", type="integer", example=400),
+     * @OA\Property(property="message", type="string", example="Failed to register the user")
+     * )
+     * )
+     * )
      */
     public function register(Request $request):JsonResponse
     {

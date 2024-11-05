@@ -6,7 +6,6 @@ namespace App\Auth\Login\Aplication;
 use App\Auth\Login\Domain\UserRepositoryInterface;
 use App\Services\JwtAuth;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 
 class UserLoginService
 {
